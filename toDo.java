@@ -12,7 +12,7 @@ public class toDo {
 	public toDo(){
 		tasks = new ArrayList<Task>();
 		Task demoTask = new Task(/*Task constructor args go here*/);
-		tasks.add(demoTask);
+		tasks.addTask(demoTask);
 	}
 	
 	public void addTask(Task t) {
@@ -60,23 +60,29 @@ public class toDo {
 	
 	public void printTasks() {
 		for (Task t : tasks) {
-			System.out.println(t); //Need to override toString of the Task class to print the id of the task
+			System.out.println(t); //Need to override toString of the Task class to print the title of the task
 		}
 	}
 	
 	public void sortByDueDate() {
 	}
 	
-	public void sortByID() {
+	public void sortByTitle() {
 	}
 	
 	public void sortByStatus() {
 	}
 	
+	public void sortByCategory(){
+	}
+	
+	public void sortByPriority(){
+	}
+	
 	@Override
 	public String toString() {
 		for(Task t : tasks) {
-			System.out.printf("%s%s - %s", t.getStatus() ? "Checked " : "", t.getId(), t.getdueDate()); //Prints that the task is checked off if 
+			System.out.printf("%s%s - %s", t.getStatus() ? "Checked " : "", t.getTitle(), t.getdueDate()); //Prints that the task is checked off if 
 																										//the task's status is true, otherwise prints nothing
 		}
 	} 
