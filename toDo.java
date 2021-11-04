@@ -84,6 +84,11 @@ public class toDo {
 		return tasks.size();
 	}
 	public void sortByDueDate() {
+		Collections.sort(tasks, new Comparator<Task>() {
+			public int compare(Task t1, Task t2) {
+				return t1.getdueDate().compareTo(t2.getdueDate());
+			}
+		});
 	}
 	public void sortByTitle() {
 	}
