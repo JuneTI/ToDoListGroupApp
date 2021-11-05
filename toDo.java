@@ -93,6 +93,11 @@ public class toDo {
 	public void sortByTitle() {
 	}
 	public void sortByStatus() {
+		Collections.sort(tasks, new Comparator<Task>() {
+			  public int compare(Task t1, Task t2) {
+			      return Boolean.compare(t1.getStatus(),t2.getStatus());
+			  }
+			});
 	}
 	public void sortByCategory(){
 	}
