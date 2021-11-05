@@ -91,6 +91,11 @@ public class toDo {
 		});
 	}
 	public void sortByTitle() {
+			Collections.sort(tasks, new Comparator<Task>() {
+			  public int compare(Task t1, Task t2) {
+			      return t1.getTitle().compareTo(t2.getTitle());
+			  }
+			});
 	}
 	public void sortByStatus() {
 		Collections.sort(tasks, new Comparator<Task>() {
@@ -100,6 +105,11 @@ public class toDo {
 			});
 	}
 	public void sortByCategory(){
+			Collections.sort(tasks, new Comparator<Task>() {
+			  public int compare(Task t1, Task t2) {
+			      return t1.getCategory().compareTo(t2.getCategory());
+			  }
+			});
 	}
 	public void sortByPriority(){
 	}
