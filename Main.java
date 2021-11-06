@@ -27,6 +27,7 @@ public class Main extends Application {
 		TextField userAddTaskField = new TextField();
 		userAddTaskField.setMaxWidth(200.00);
 		Button bt = new Button("Add Task");
+		Button removebt = new Button("Remove Task");
 		
 		//Left side (Display List)
 		toDo toDoList = new toDo();
@@ -34,19 +35,20 @@ public class Main extends Application {
 		
 		//Bottom (Sort buttons)
 		Label buttonsLabel = new Label("Sort by:");
-		buttonsLabel.setStyle("-fx-font-size: 16px");
+		buttonsLabel.setStyle("-fx-font-size: 16px; -fx-font-weight: bold; -fx-text-fill: white");
 		Button az = new Button("A-Z");
 		Button dd = new Button("Due Date");
 		Button complete = new Button("Completion");
 		Button category = new Button("Category");
 		Button priority = new Button("Priority");
+
 		
 		//Constructing right side
 		VBox vbRight = new VBox();
 		vbRight.setId("rightSide");
 		vbRight.setPrefWidth(300.00);
 		vbRight.setPadding(new Insets(50.00, 20.00, 0, 35.00));
-		vbRight.getChildren().addAll(labelAddTaskField, userAddTaskField, bt);
+		vbRight.getChildren().addAll(labelAddTaskField, userAddTaskField, bt, removebt);
 		
 		//Constructing left side
 		VBox vbCenter = new VBox();
@@ -82,6 +84,14 @@ public class Main extends Application {
 			}
 		}
 		);
+		
+		//Event Handing for remove Button
+		removebt.setOnAction(e -> {
+			int index = lv.getSelectionModel().getSelectedIndex();
+			if (index >= 0) {
+			    lv.getItems().remove(index);
+			}
+		});
 	}
 	
 	public static void main(String[] args) {
