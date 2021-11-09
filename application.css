@@ -1,6 +1,9 @@
 #center{
 	-fx-background-color: #1F1540;
 }
+#leftSide{
+	-fx-background-color: #1F1540;
+}
 #rightSide{
 	-fx-background-color: #2F195F;
 }
