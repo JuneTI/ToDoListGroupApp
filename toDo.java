@@ -111,6 +111,4 @@ public class toDo {
 			  }
 			});
 	}
-	public void sortByPriority(){
-	}
 }
