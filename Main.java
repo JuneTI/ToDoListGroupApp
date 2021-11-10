@@ -132,6 +132,7 @@ public class Main extends Application {
 		//Event Handling for buttons
 		bt.setOnAction(e -> {
 			String text = userAddTaskField.getText();
+			userAddTaskField.clear();
 			int i = toDoList.getNumOfTasks();
 			if(text != "") {
 				toDoList.addTask(new Task(text));
@@ -144,7 +145,17 @@ public class Main extends Application {
 		removebt.setOnAction(e -> {
 			int index = lv.getSelectionModel().getSelectedIndex();
 			if (index >= 0) {
+				Task temp = toDoList.getTask(index);
 			    lv.getItems().remove(index);
+			    toDoList.removeTask(temp);
+			}
+		});
+		
+		az.setOnAction(e -> {
+			toDoList.sortByTitle();
+			lv.getItems().clear();
+			for(int i=0; i<toDoList.getNumOfTasks(); i++) {
+				lv.getItems().add(toDoList.getTask(i).toString());
 			}
 		});
 	}
