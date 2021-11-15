@@ -1,15 +1,15 @@
 package application;
 
-import java.util.Date;
+import java.time.*;
 
 public class Task {
 	
 	//Private data fields
 	private String title;
 	private boolean status;
-	private Date dueDate;
+	private LocalDate dueDate;
 	private String category;
-	private int priority;
+	private String desc;
 	
 	//Accessor methods
 	public String getTitle() {
@@ -18,14 +18,14 @@ public class Task {
 	public boolean getStatus() {
 		return status;
 	}
-	public Date getdueDate() {
+	public LocalDate getdueDate() {
 		return dueDate;
 	}
 	public String getCategory() {
 		return category;
 	}
-	public int getPriority() {
-		return priority;
+	public String getDesc() {
+		return desc;
 	}
 	
 	//Mutator methods
@@ -35,14 +35,14 @@ public class Task {
 	public void setStatus(boolean status) {
 		this.status = status;
 	}
-	public void setDueDate(Date newDate) {
+	public void setDueDate(LocalDate newDate) {
 		this.dueDate = newDate;
 	}
 	public void setCategory(String category) {
 		this.category = category;
 	}
-	public void setPriority(int priority) {
-		this.priority = priority;
+	public void setDesc(String desc) {
+		this.desc = desc;
 	}
 	
 	//.equals()
@@ -60,37 +60,29 @@ public class Task {
 	public Task() {
 		this.title = "Unnamed Task";
 		this.status = false;
-		this.dueDate = new Date();
+		this.dueDate = LocalDate.now();
 		this.category = "Default";
-		this.priority = 1;
+		this.desc = "";
 	}
 	public Task(String title) {
 		this.title = title;
 		this.status = false;
-		this.dueDate = new Date();
+		this.dueDate = LocalDate.now();
 		this.category = "Default";
-		this.priority = 1;
+		this.desc = "";
 	}
-	public Task(String title, boolean status, Date dueDate) {
+	public Task(String title, boolean status, LocalDate dueDate) {
 		this.title = title;
 		this.status = status;
 		this.dueDate = dueDate;
 		this.category = "Default";
-		this.priority = 1;
+		this.desc = "";
 	}
-	public Task(String title, boolean status, Date dueDate, String category) {
+	public Task(String title, boolean status, LocalDate dueDate, String category) {
 		this.title = title;
 		this.status = status;
 		this.dueDate = dueDate;
 		this.category = category;
-		this.priority = 1;
+		this.desc = "";
 	}
-	public Task(String title, boolean status, Date dueDate, int priority) {
-		this.title = title;
-		this.status = status;
-		this.dueDate = dueDate;
-		this.category = "Default";
-		this.priority = priority;
-	}
-	
 }

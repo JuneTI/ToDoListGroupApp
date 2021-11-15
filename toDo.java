@@ -1,5 +1,6 @@
 package application;
 import java.util.*;
+import java.time.*;
 
 public class toDo {
 	
@@ -57,7 +58,7 @@ public class toDo {
 			}
 		}
 	}
-	public void editTask(Task t, String title, boolean status, Date dueDate, String category, int priority) {
+	public void editTask(Task t, String title, boolean status, LocalDate dueDate, String category, String desc) {
 		int index = 0;
 		boolean found = false;
 		Task toEdit;
@@ -69,7 +70,7 @@ public class toDo {
 				toEdit.setStatus(status);
 				toEdit.setDueDate(dueDate);
 				toEdit.setCategory(category);
-				toEdit.setPriority(priority);
+				toEdit.setDesc(desc);
 			} else {
 				index++;
 			}
@@ -84,11 +85,14 @@ public class toDo {
 		return tasks.size();
 	}
 	public void sortByDueDate() {
+		Comparator<Task> mapComparator = (Task t1, Task t2) -> t1.getdueDate().compareTo(t2.getdueDate());
+		Collections.sort(tasks, mapComparator);
+	/*public void sortByDueDate() {
 		Collections.sort(tasks, new Comparator<Task>() {
 			public int compare(Task t1, Task t2) {
 				return t1.getdueDate().compareTo(t2.getdueDate());
 			}
-		});
+		});*/
 	}
 	public void sortByTitle() {
 			Collections.sort(tasks, new Comparator<Task>() {
