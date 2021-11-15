@@ -124,6 +124,7 @@ public class Main extends Application {
 		categText.setFont(new Font("Arial", 15));
 		categText.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
 		CheckBox completeBox = new CheckBox("Task Completed");
+		completeBox.setTextFill(Color.WHITE);
 		
 		
 		centerHB1.getChildren().addAll(taskNameLabel, taskNameText, dueDateLabel, dueDateText);
