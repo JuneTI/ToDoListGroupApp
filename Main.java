@@ -9,14 +9,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.CheckBoxListCell;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
 import javafx.collections.*;
-
 import java.time.*;
 import java.time.format.DateTimeFormatter;
 
@@ -46,9 +45,10 @@ public class Main extends Application {
 		labelCategory.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
 		TextField categField = new TextField();
 		Button categbt = new Button("Set Task Category");
-		//description button / remove task button
+		//description button / remove task button / save file
 		Button descbt = new Button("Save Task Description");
 		Button removebt = new Button("Remove Task");
+		Button savebt = new Button("Save File");
 		
 		//Left side (Display List)
 		toDo toDoList = new toDo();
@@ -60,8 +60,7 @@ public class Main extends Application {
 		Label listOfTasks = new Label("List of Tasks: ");
 		listOfTasks.setFont(new Font("Arial", 15));
 		listOfTasks.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
-		//Checkboxes next to the ListView items
-		
+		Button loadbt = new Button("Load File");
 		
 		//Bottom (Sort buttons)
 		Label buttonsLabel = new Label("Sort by:");
@@ -84,50 +83,53 @@ public class Main extends Application {
 		vbLeft.setPadding(new Insets(50.00, 0, 0, 20.00));
 		vbLeft.getChildren().addAll(listOfTasks, lv);
 		
+		
 		//Constructing the center of pane that contains the details of the task
 		VBox vbCenter = new VBox();
 		vbCenter.setId("center");
 		vbCenter.setPadding(new Insets(50, 20, 0 ,35));
+		vbCenter.setSpacing(50);
 		HBox centerHB1 = new HBox();
-		centerHB1.setAlignment(Pos.BASELINE_CENTER);
-		centerHB1.setSpacing(150);
 		HBox centerHB2 = new HBox();
-		centerHB2.setAlignment(Pos.BASELINE_CENTER);
-		centerHB2.setSpacing(150);
 		HBox centerHB3 = new HBox();
-		centerHB3.setAlignment(Pos.TOP_LEFT);
+		
+		
 		Label taskNameLabel = new Label("Task Name: ");
 		taskNameLabel.setFont(new Font("Arial", 15));
 		taskNameLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
-		Text taskNameText = new Text();
+		taskNameLabel.setPrefWidth(90);
+		taskNameLabel.setAlignment(Pos.CENTER_LEFT);
+		Label taskNameText = new Label();
 		taskNameText.setFont(new Font("Arial", 15));
 		taskNameText.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
+		taskNameText.setPrefWidth(200);
 		Label dueDateLabel = new Label("Due Date: ");
 		dueDateLabel.setFont(new Font("Arial", 15));
 		dueDateLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
-		Text dueDateText = new Text();
+		Label dueDateText = new Label();
 		dueDateText.setFont(new Font("Arial", 15));
 		dueDateText.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
-		dueDateText.setTextAlignment(TextAlignment.RIGHT);
-		dueDateLabel.setTextAlignment(TextAlignment.RIGHT);
 		
 		Label taskDescLabel = new Label("Task Description");
 		taskDescLabel.setFont(new Font("Arial", 15));
 		taskDescLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
+		taskDescLabel.setPrefWidth(289);
 		TextArea taskDescriptionText = new TextArea();
-		taskDescriptionText.setPrefHeight(630);
-		taskDescriptionText.setPrefWidth(600);
+		taskDescriptionText.setPrefHeight(200);
+		taskDescriptionText.setPrefWidth(400);
 		Label categLabel = new Label("Category: ");
 		categLabel.setFont(new Font("Arial", 15));
 		categLabel.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
-		Text categText = new Text();
+		Label categText = new Label();
 		categText.setFont(new Font("Arial", 15));
 		categText.setStyle("-fx-font-weight: bold; -fx-text-fill: white");
+		CheckBox completeBox = new CheckBox("Task Completed");
+		
 		
 		centerHB1.getChildren().addAll(taskNameLabel, taskNameText, dueDateLabel, dueDateText);
 		centerHB2.getChildren().addAll(taskDescLabel, categLabel, categText);
 		centerHB3.getChildren().addAll(taskDescriptionText);
-		vbCenter.getChildren().addAll(centerHB1, centerHB2, centerHB3);
+		vbCenter.getChildren().addAll(centerHB1, centerHB2, centerHB3, completeBox);
 		
 		//Constructing bottom
 		HBox hb = new HBox(80);
@@ -175,7 +177,7 @@ public class Main extends Application {
 			int i = lv.getSelectionModel().getSelectedIndex();
 			toDoList.getTask(i).setDueDate(text);
 			dueDateText.setText(toDoList.getTask(i).getdueDate().toString());
-			dueDateField.clear();
+			dueDateField.setText("mm/dd/yyyy");
 		});
 		//Event for saving the task description
 		descbt.setOnAction(e -> {
@@ -190,6 +192,11 @@ public class Main extends Application {
 			toDoList.getTask(i).setCategory(text);
 			categText.setText(toDoList.getTask(i).getCategory());
 			categField.clear();
+		});
+		//Event for marking task as completed
+		completeBox.setOnAction(e -> {
+			int i = lv.getSelectionModel().getSelectedIndex();
+			toDoList.getTask(i).setStatus(completeBox.isSelected());
 		});
 		//Event for sorting
 		// by title
@@ -208,6 +215,22 @@ public class Main extends Application {
 				lv.getItems().add(toDoList.getTask(i).toString());
 			}
 		});
+		// by completion
+		complete.setOnAction(e -> {
+			toDoList.sortByStatus();
+			lv.getItems().clear();
+			for(int i=0; i<toDoList.getNumOfTasks(); i++) {
+				lv.getItems().add(toDoList.getTask(i).toString());
+			}
+		});
+		// by Category
+		category.setOnAction(e -> {
+			toDoList.sortByCategory();
+			lv.getItems().clear();
+			for(int i=0; i<toDoList.getNumOfTasks(); i++) {
+				lv.getItems().add(toDoList.getTask(i).toString());
+			}
+		});
 		//descbt.setOnAction(null)
 		//Event for center pane when clicking on a task
 		lv.setOnMouseClicked(e -> {
@@ -216,6 +239,7 @@ public class Main extends Application {
 			dueDateText.setText(toDoList.getTask(i).getdueDate().toString());
 			categText.setText(toDoList.getTask(i).getCategory());
 			taskDescriptionText.setText(toDoList.getTask(i).getDesc());
+			completeBox.setSelected(toDoList.getTask(i).getStatus());
 		});
 		
 	}
