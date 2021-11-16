@@ -55,7 +55,7 @@ public class Main extends Application {
 		ListView lv = new ListView();
 		lv.setItems(FXCollections.observableArrayList(toDoList.tasks));
 		lv.setMaxWidth(200);
-		lv.setPrefHeight(650);
+		lv.setPrefHeight(600);
 		lv.setMaxHeight(650);
 		Label listOfTasks = new Label("List of Tasks: ");
 		listOfTasks.setFont(new Font("Arial", 15));
@@ -75,13 +75,13 @@ public class Main extends Application {
 		vbRight.setId("rightSide");
 		vbRight.setPrefWidth(300.00);
 		vbRight.setPadding(new Insets(50.00, 20.00, 0, 35.00));
-		vbRight.getChildren().addAll(labelAddTask, userAddTaskField, addbt, labelDueDate, dueDateField, duebt, labelCategory, categField, categbt, descbt, removebt);
+		vbRight.getChildren().addAll(labelAddTask, userAddTaskField, addbt, labelDueDate, dueDateField, duebt, labelCategory, categField, categbt, descbt);
 		
 		//Constructing left side
-		VBox vbLeft = new VBox();
+		VBox vbLeft = new VBox(7);
 		vbLeft.setId("leftSide");
 		vbLeft.setPadding(new Insets(50.00, 0, 0, 20.00));
-		vbLeft.getChildren().addAll(listOfTasks, lv);
+		vbLeft.getChildren().addAll(listOfTasks, lv, removebt);
 		
 		
 		//Constructing the center of pane that contains the details of the task
