@@ -73,12 +73,14 @@ public class Main extends Application {
 		//Constructing right side
 		VBox vbRight = new VBox();
 		VBox vbRight1 = new VBox();
+		vbRight1.setSpacing(5);
 		VBox vbRight2 = new VBox();
+		vbRight2.setSpacing(5);
 		vbRight1.getChildren().addAll(labelAddTask, userAddTaskField, addbt);
 		vbRight2.getChildren().addAll(labelDueDate, dueDateField, duebt, labelCategory, categField, categbt, descbt);
 		vbRight.setId("rightSide");
 		vbRight.setPrefWidth(300.00);
-		vbRight.setSpacing(200);
+		vbRight.setSpacing(375);
 		vbRight.setPadding(new Insets(50.00, 20.00, 0, 35.00));
 		vbRight.getChildren().addAll(vbRight1, vbRight2);
 		
